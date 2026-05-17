@@ -81,8 +81,9 @@ async function handleSubmit() {
             <BdInput v-model="form.phone" label="Phone" placeholder="Optional" />
           </div>
           <div class="flex flex-col gap-1.5">
-            <label class="text-sm font-medium text-bd-text-secondary">Message</label>
+            <label for="contact-message" class="text-sm font-medium text-bd-text-secondary">Message</label>
             <textarea
+              id="contact-message"
               v-model="form.message"
               rows="5"
               placeholder="Tell us about your automation needs..."

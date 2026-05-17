@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useId } from 'vue'
+
 interface Props {
   modelValue?: string
   type?: string
@@ -19,6 +21,8 @@ const props = withDefaults(defineProps<Props>(), {
   id: '',
 })
 
+const inputId = props.id || useId()
+
 defineEmits<{
   'update:modelValue': [value: string]
 }>()
@@ -28,13 +32,13 @@ defineEmits<{
   <div class="flex flex-col gap-1.5">
     <label
       v-if="label"
-      :for="props.id"
+      :for="inputId"
       class="text-sm font-medium text-bd-text-secondary"
     >
       {{ label }}
     </label>
     <input
-      :id="props.id"
+      :id="inputId"
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"

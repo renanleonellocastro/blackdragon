@@ -57,47 +57,80 @@ BlackDragon is a full-stack SaaS platform for visual smart home programming targ
 
 ### Prerequisites
 
-- **Node.js** 20+
-- **Python** 3.12+
-- **PostgreSQL** 16+
-- **Docker & Docker Compose** (optional)
+- **Node.js** 20+ (`node --version`)
+- **Python** 3.12+ (`python3 --version`)
+- **Docker** (for PostgreSQL, or a local PostgreSQL 16+ instance)
 
-### 🐳 Using Docker Compose (recommended)
+### 🐳 Using Docker Compose
+
+> Requires `docker-compose` (standalone) or `docker compose` (plugin).  
+> Check which one you have: `docker-compose --version` or `docker compose version`
 
 ```bash
 cp backend/.env.example backend/.env
 # Edit backend/.env with your settings
+
+# Standalone (docker-compose):
+docker-compose -f docker/docker-compose.yml up --build
+
+# Plugin (docker compose):
 docker compose -f docker/docker-compose.yml up --build
 ```
 
 ### 🔧 Manual Setup
 
 <details>
-<summary><strong>Backend</strong></summary>
+<summary><strong>1. Start PostgreSQL</strong></summary>
 
 ```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-cp .env.example .env
-# Edit .env with your database URL and secret key
-alembic upgrade head
-python -m app.seed  # Optional: seed demo data
-uvicorn app.main:app --reload
+# Option A: Plain Docker (no Compose needed)
+docker run -d --name blackdragon-db \
+  -e POSTGRES_DB=blackdragon \
+  -e POSTGRES_USER=blackdragon \
+  -e POSTGRES_PASSWORD=blackdragon \
+  -p 5432:5432 \
+  postgres:16-alpine
+
+# Option B: docker-compose (standalone)
+docker-compose -f docker/docker-compose.yml up postgres -d
+
+# Option C: docker compose (plugin)
+docker compose -f docker/docker-compose.yml up postgres -d
+
+# Option D: Use an existing local PostgreSQL and configure backend/.env
 ```
 
 </details>
 
 <details>
-<summary><strong>Frontend</strong></summary>
+<summary><strong>2. Backend</strong></summary>
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+cp .env.example .env
+# Edit .env if your DB credentials differ from the defaults
+alembic upgrade head
+python -m app.seed  # Optional: seed demo data
+uvicorn app.main:app --reload
+```
+
+The backend runs at **http://localhost:8000**.
+
+</details>
+
+<details>
+<summary><strong>3. Frontend</strong></summary>
 
 ```bash
 cd frontend
 npm install
-cp .env.example .env
 npm run dev
 ```
+
+The frontend runs at **http://localhost:3000** and proxies `/api` requests to the backend.
 
 </details>
 
@@ -140,17 +173,67 @@ blackdragon/
 
 ## 🧪 Testing
 
+### 🐍 Backend tests (85 tests)
+
+No external services needed — tests use an in-memory SQLite database.
+
 ```bash
-# 🐍 Backend (activate virtual environment first)
 cd backend
 source .venv/bin/activate
 python -m pytest
+```
 
-# ⚡ Frontend unit tests
+> **Note:** The bare `pytest` command won't work unless the venv's `bin/` is on your PATH.  
+> Always use `python -m pytest` to be safe.
+
+### ⚡ Frontend unit tests (55 tests)
+
+No servers needed — tests run in jsdom with mocked services.
+
+```bash
 cd frontend
 npm run test
+```
 
-# 🎭 Frontend e2e tests
+### 🎭 Frontend e2e tests (5 tests)
+
+E2e tests use Playwright to drive a real Chromium browser. Some tests (public page navigation) work with only the frontend; others (auth, forms, portal) require the full stack with PostgreSQL.
+
+**Step 1 — Install Playwright browsers** (first time only):
+
+```bash
+cd frontend
+npx playwright install chromium
+```
+
+**Step 2 — Run e2e tests:**
+
+```bash
+cd frontend
+npx playwright test
+```
+
+The Playwright config auto-starts the frontend dev server.
+Tests that need the database skip automatically if PostgreSQL/backend aren't running.
+
+**To run ALL e2e tests** (including auth and form submission), start PostgreSQL and the backend first:
+
+```bash
+# Terminal 1: Start PostgreSQL (see Quick Start above)
+docker run -d --name blackdragon-db \
+  -e POSTGRES_DB=blackdragon \
+  -e POSTGRES_USER=blackdragon \
+  -e POSTGRES_PASSWORD=blackdragon \
+  -p 5432:5432 \
+  postgres:16-alpine
+
+# Terminal 2: Start backend
+cd backend
+source .venv/bin/activate
+alembic upgrade head
+uvicorn app.main:app --reload
+
+# Terminal 3: Run e2e tests
 cd frontend
 npx playwright test
 ```
@@ -167,7 +250,7 @@ Start the backend and visit:
 
 ## 🔐 Environment Variables
 
-See `backend/.env.example` and `frontend/.env.example` for all configuration options.
+See `backend/.env.example` for all backend configuration options (database URL, JWT secret, CORS origins, Fernet key).
 
 ---
 
