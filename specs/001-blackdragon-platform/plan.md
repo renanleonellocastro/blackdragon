@@ -118,7 +118,9 @@ frontend/
 │   │   │   ├── BdInput.vue
 │   │   │   ├── BdModal.vue
 │   │   │   ├── BdTable.vue
-│   │   │   └── BdStatusIndicator.vue
+│   │   │   ├── BdStatusIndicator.vue
+│   │   │   ├── BdLogo.vue           # Logo component with size variants
+│   │   │   └── BdCircuitPattern.vue  # SVG circuit-board decorative pattern
 │   │   ├── layout/
 │   │   │   ├── AppHeader.vue
 │   │   │   ├── AppSidebar.vue

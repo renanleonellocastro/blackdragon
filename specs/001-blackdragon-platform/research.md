@@ -166,31 +166,56 @@ switch:
 
 ## R6: BlackDragon Design System with Tailwind CSS
 
-**Decision**: Extend Tailwind CSS with custom design tokens matching the BlackDragon brand identity (ultra-dark, metallic, industrial aesthetic) and build a reusable Vue component library.
+**Decision**: Extend Tailwind CSS with custom design tokens matching the BlackDragon brand identity (ultra-dark, metallic, industrial aesthetic) and build a reusable Vue component library. The brand identity is derived from the BlackDragon logo (`specs/001-blackdragon-platform/blackdragon_logo.png`) and must permeate every user-facing surface.
 
 **Rationale**:
 - Tailwind's configuration system (`tailwind.config.ts`) supports custom colors, shadows, fonts, and animations as first-class tokens.
 - Building a component library (BdButton, BdCard, BdInput, etc.) ensures consistency across all views and enforces the constitution's UX consistency principle.
 - The dark-mode-only constraint simplifies the design system (no light/dark toggle needed).
+- A strong brand presence across all pages (public website, auth, portal, editor) reinforces the premium engineering product identity.
 
 **Key implementation patterns**:
 - Custom Tailwind theme extends `colors` with BlackDragon palette (`bd-bg-primary: #050505`, etc.).
 - Custom shadows: `bd-glow` for subtle metallic glow effects, `bd-emboss` for raised card surfaces.
 - Custom gradients: `bd-metallic` for linear gradients simulating brushed metal.
+- Circuit-board pattern: SVG background pattern (`bd-circuit-pattern`) used in hero sections, dividers, card backgrounds, and section separators. Defined as a Tailwind utility class and reusable Vue component.
+- Technical typography: Use a futuristic monospace/technical font family (e.g., JetBrains Mono for code, Inter or Exo 2 for UI) defined in Tailwind `fontFamily` tokens.
+- Logo placement: BlackDragon logo rendered as a Vue component (`BdLogo.vue`) with size variants, used in AppHeader, LoginPage, RegisterPage, DashboardPage, and HomePage hero.
 - All components use `Bd` prefix (e.g., `BdButton`, `BdCard`) to distinguish from third-party components.
 - Component props standardize variants: `variant="primary" | "secondary" | "ghost" | "danger"`.
-- Visual editor nodes use a distinct `BdNode` base component with colored port indicators and selection glow.
+- Visual editor nodes use a distinct `BdNode` base component with dark node bodies, color-coded port indicators, selection glow, and consistent header styling.
+- No ad-hoc CSS overrides: all styling must consume design tokens. Tailwind's `@apply` and utility classes are the only acceptable approaches.
 
 **Color tokens**:
 ```typescript
 colors: {
   'bd-bg': { primary: '#050505', secondary: '#0A0A0A', panel: '#111111', surface: '#181818' },
-  'bd-border': '#2A2A2A',
-  'bd-text': { primary: '#E5E5E5', secondary: '#9CA3AF' },
-  'bd-accent': { DEFAULT: '#6B7280', highlight: '#D1D5DB' },
+  'bd-border': { DEFAULT: '#2A2A2A', accent: '#3A3A3A' },
+  'bd-text': { primary: '#E5E5E5', secondary: '#9CA3AF', muted: '#6B7280' },
+  'bd-accent': { DEFAULT: '#6B7280', highlight: '#D1D5DB', metallic: '#8B8B8B' },
   'bd-success': '#10B981',
   'bd-warning': '#F59E0B',
   'bd-error': '#EF4444',
+  'bd-chrome': { light: '#C0C0C0', mid: '#808080', dark: '#404040' },
+}
+```
+
+**Shadow tokens**:
+```typescript
+boxShadow: {
+  'bd-glow': '0 0 15px rgba(107, 114, 128, 0.15)',
+  'bd-glow-accent': '0 0 20px rgba(107, 114, 128, 0.25)',
+  'bd-emboss': 'inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 3px rgba(0,0,0,0.5)',
+  'bd-node': '0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03)',
+}
+```
+
+**Gradient tokens**:
+```typescript
+backgroundImage: {
+  'bd-metallic': 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #1a1a1a 100%)',
+  'bd-chrome': 'linear-gradient(180deg, #404040 0%, #2a2a2a 100%)',
+  'bd-hero': 'radial-gradient(ellipse at top, #111111 0%, #050505 70%)',
 }
 ```
 

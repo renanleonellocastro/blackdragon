@@ -45,17 +45,20 @@
 
 ### Design System & Layout
 
-- [ ] T007 Configure Tailwind CSS with BlackDragon design tokens (colors, shadows, gradients, typography, animations) in frontend/tailwind.config.ts and frontend/src/assets/styles/main.css
-- [ ] T008 [P] Create BdButton component with variants (primary, secondary, ghost, danger) in frontend/src/components/ui/BdButton.vue
-- [ ] T009 [P] Create BdCard component with metallic embossed styling in frontend/src/components/ui/BdCard.vue
-- [ ] T010 [P] Create BdInput component with validation states in frontend/src/components/ui/BdInput.vue
-- [ ] T011 [P] Create BdModal component with overlay and focus trap in frontend/src/components/ui/BdModal.vue
-- [ ] T012 [P] Create BdTable component with sorting and pagination in frontend/src/components/ui/BdTable.vue
+- [ ] T007 Configure Tailwind CSS with BlackDragon design tokens (colors, shadows, gradients, typography, animations) in frontend/tailwind.config.ts and frontend/src/assets/styles/main.css — include expanded token sets: bd-chrome color scale, bd-glow/bd-emboss/bd-node shadows, bd-metallic/bd-chrome/bd-hero gradients, and futuristic font family (Exo 2 for UI, JetBrains Mono for code)
+- [ ] T007a [P] Create BdLogo component with size variants (sm, md, lg, xl) rendering the BlackDragon logo from /public/logo.svg, used in AppHeader, LoginPage, RegisterPage, DashboardPage, and HomePage hero in frontend/src/components/ui/BdLogo.vue
+- [ ] T007b [P] Create BdCircuitPattern component rendering an SVG circuit-board-inspired decorative pattern for use in hero sections, card backgrounds, dividers, and section separators in frontend/src/components/ui/BdCircuitPattern.vue
+- [ ] T007c [P] Add futuristic technical web fonts (Exo 2, JetBrains Mono) to frontend/index.html and configure as Tailwind fontFamily tokens in frontend/tailwind.config.ts
+- [ ] T008 [P] Create BdButton component with variants (primary, secondary, ghost, danger) using metallic gradients and glow hover effects in frontend/src/components/ui/BdButton.vue
+- [ ] T009 [P] Create BdCard component with metallic embossed styling, circuit-pattern background option, and bd-emboss shadow in frontend/src/components/ui/BdCard.vue
+- [ ] T010 [P] Create BdInput component with validation states and charcoal surface styling in frontend/src/components/ui/BdInput.vue
+- [ ] T011 [P] Create BdModal component with overlay, focus trap, and dark surface styling in frontend/src/components/ui/BdModal.vue
+- [ ] T012 [P] Create BdTable component with sorting, pagination, and dark row striping in frontend/src/components/ui/BdTable.vue
 - [ ] T013 [P] Create BdStatusIndicator component with status colors in frontend/src/components/ui/BdStatusIndicator.vue
-- [ ] T014 Create AppHeader with navigation and logo in frontend/src/components/layout/AppHeader.vue
-- [ ] T015 [P] Create AppFooter component in frontend/src/components/layout/AppFooter.vue
-- [ ] T016 [P] Create AppSidebar for portal navigation in frontend/src/components/layout/AppSidebar.vue
-- [ ] T017 Create PortalLayout combining sidebar and content area in frontend/src/components/layout/PortalLayout.vue
+- [ ] T014 Create AppHeader with navigation, BdLogo placement, and metallic bottom border in frontend/src/components/layout/AppHeader.vue
+- [ ] T015 [P] Create AppFooter component with circuit-pattern decorative divider in frontend/src/components/layout/AppFooter.vue
+- [ ] T016 [P] Create AppSidebar for portal navigation with dark panel styling and accent highlights in frontend/src/components/layout/AppSidebar.vue
+- [ ] T017 Create PortalLayout combining sidebar and content area with ultra-dark background in frontend/src/components/layout/PortalLayout.vue
 
 ### Frontend Core
 
@@ -103,9 +106,9 @@
 - [ ] T036 [P] [US1] Create LeadSubmission model with fields per data-model.md in backend/app/models/lead_submission.py
 - [ ] T037 [P] [US1] Create lead Pydantic schemas (LeadCreate, LeadResponse, LeadUpdate) in backend/app/schemas/lead.py
 - [ ] T038 [US1] Create lead submission API endpoints (POST /api/leads public, GET/PATCH /api/admin/leads admin) in backend/app/api/leads.py
-- [ ] T039 [P] [US1] Create HomePage with hero section, features overview, and CTA in frontend/src/views/public/HomePage.vue
-- [ ] T040 [P] [US1] Create AboutPage with company overview and mission in frontend/src/views/public/AboutPage.vue
-- [ ] T041 [P] [US1] Create ProductsPage displaying board catalog with specs in frontend/src/views/public/ProductsPage.vue
+- [ ] T039 [P] [US1] Create HomePage with hero section using bd-hero gradient, BdLogo (xl), BdCircuitPattern background, features overview with metallic cards, and CTA with accent glow in frontend/src/views/public/HomePage.vue
+- [ ] T040 [P] [US1] Create AboutPage with company overview, mission section with circuit-pattern dividers, and metallic accent styling in frontend/src/views/public/AboutPage.vue
+- [ ] T041 [P] [US1] Create ProductsPage displaying board catalog with BdCard metallic styling and specs in frontend/src/views/public/ProductsPage.vue
 - [ ] T042 [P] [US1] Create SolutionsPage with automation capabilities in frontend/src/views/public/SolutionsPage.vue
 - [ ] T043 [P] [US1] Create ProjectsPage with case studies portfolio in frontend/src/views/public/ProjectsPage.vue
 - [ ] T044 [P] [US1] Create BlogPage with article listing in frontend/src/views/public/BlogPage.vue
@@ -149,12 +152,12 @@
 - [ ] T060 [P] [US2] Create auth frontend service (login, register, refresh, logout API calls) in frontend/src/services/auth.service.ts
 - [ ] T061 [P] [US2] Create Pinia auth store with token management, user state, and automatic session expiry detection with re-authentication prompt (intercept 401 responses during editing to prevent data loss) in frontend/src/stores/auth.ts
 - [ ] T062 [P] [US2] Create useAuth composable for login/logout/register actions in frontend/src/composables/useAuth.ts
-- [ ] T063 [US2] Create LoginPage with email/password form and error handling in frontend/src/views/auth/LoginPage.vue
-- [ ] T064 [US2] Create RegisterPage with registration form and validation in frontend/src/views/auth/RegisterPage.vue
+- [ ] T063 [US2] Create LoginPage with BdLogo, email/password form using BdInput/BdButton, metallic card container, and error handling in frontend/src/views/auth/LoginPage.vue
+- [ ] T064 [US2] Create RegisterPage with BdLogo, registration form using BdInput/BdButton, metallic card container, and validation in frontend/src/views/auth/RegisterPage.vue
 - [ ] T065 [P] [US2] Create project frontend service (CRUD, duplicate API calls) in frontend/src/services/project.service.ts
 - [ ] T066 [P] [US2] Create Pinia project store with project list and current project state in frontend/src/stores/project.ts
 - [ ] T067 [P] [US2] Create project TypeScript types in frontend/src/types/project.ts
-- [ ] T068 [US2] Create DashboardPage with property list and project cards in frontend/src/views/portal/DashboardPage.vue
+- [ ] T068 [US2] Create DashboardPage with BdLogo header, property list, project cards using BdCard metallic emboss, and circuit-pattern section dividers in frontend/src/views/portal/DashboardPage.vue
 - [ ] T069 [US2] Create ProjectListPage with filtering and project actions in frontend/src/views/portal/ProjectListPage.vue
 - [ ] T070 [US2] Add route guards for authenticated routes in frontend/src/router/index.ts
 
@@ -182,9 +185,9 @@
 - [ ] T077 [US3] Add Alembic migration for Diagram table in backend/alembic/versions/
 - [ ] T078 [P] [US3] Create editor TypeScript types (NodeData, EdgeData, PortDefinition, NodeDefinition) in frontend/src/types/editor.ts
 - [ ] T079 [P] [US3] Create Pinia editor store with Vue Flow state management in frontend/src/stores/editor.ts
-- [ ] T080 [US3] Create DigitalInputNode custom Vue Flow node with signal output port in frontend/src/components/editor/nodes/DigitalInputNode.vue
-- [ ] T081 [P] [US3] Create DigitalOutputNode custom Vue Flow node with signal input port in frontend/src/components/editor/nodes/DigitalOutputNode.vue
-- [ ] T082 [P] [US3] Create LogicGateNode (AND, OR, NOT, XOR variants) with typed ports in frontend/src/components/editor/nodes/LogicGateNode.vue
+- [ ] T080 [US3] Create DigitalInputNode custom Vue Flow node with signal output port, dark node body, bd-node shadow, and color-coded ports per BlackDragon design system in frontend/src/components/editor/nodes/DigitalInputNode.vue
+- [ ] T081 [P] [US3] Create DigitalOutputNode custom Vue Flow node with signal input port, dark node body, and brand-consistent styling in frontend/src/components/editor/nodes/DigitalOutputNode.vue
+- [ ] T082 [P] [US3] Create LogicGateNode (AND, OR, NOT, XOR variants) with typed ports, dark node body, and accent-colored gate labels in frontend/src/components/editor/nodes/LogicGateNode.vue
 - [ ] T083 [P] [US3] Create TimerNode with trigger input and output ports in frontend/src/components/editor/nodes/TimerNode.vue
 - [ ] T084 [P] [US3] Create DelayNode with input and delayed output ports in frontend/src/components/editor/nodes/DelayNode.vue
 - [ ] T085 [P] [US3] Create EdgeDetectorNode with rising/falling output ports in frontend/src/components/editor/nodes/EdgeDetectorNode.vue
@@ -192,7 +195,7 @@
 - [ ] T087 [P] [US3] Create ConstantNode (True/False variants) with value output port in frontend/src/components/editor/nodes/ConstantNode.vue
 - [ ] T088 [US3] Create NodePalette component with categorized draggable node list in frontend/src/components/editor/NodePalette.vue
 - [ ] T089 [US3] Create PropertiesPanel component for editing selected node properties in frontend/src/components/editor/PropertiesPanel.vue
-- [ ] T090 [US3] Create EditorCanvas component integrating Vue Flow with custom nodes, minimap, controls, background grid, and connection validation in frontend/src/components/editor/EditorCanvas.vue
+- [ ] T090 [US3] Create EditorCanvas component integrating Vue Flow with custom nodes, minimap, controls, ultra-dark background grid with circuit-board pattern, selection glow effects, and connection validation in frontend/src/components/editor/EditorCanvas.vue
 - [ ] T091 [US3] Create useAutoSave composable with debounced draft save (60s interval) in frontend/src/composables/useAutoSave.ts
 - [ ] T092 [US3] Create ProjectEditorPage integrating EditorCanvas, NodePalette, and PropertiesPanel in frontend/src/views/portal/ProjectEditorPage.vue
 

@@ -272,6 +272,17 @@ A client creates reusable automation modules (custom blocks) from existing diagr
 - **FR-041**: System MUST store credentials for Home Assistant and ESPHome devices securely using encryption at rest.
 - **FR-042**: System MUST enforce tenant data isolation at the data layer, preventing cross-tenant data access regardless of application logic.
 
+**Brand Identity & Design System**
+
+- **FR-043**: All frontend pages and components MUST strictly follow the BlackDragon brand identity, using ultra-dark backgrounds (#050505 primary, #0A0A0A secondary), matte black and charcoal surfaces, and metallic graphite/silver accents throughout the application.
+- **FR-044**: The design system MUST incorporate circuit-board-inspired patterns and details as decorative elements in backgrounds, dividers, card borders, and section separators across both public and portal views.
+- **FR-045**: All typography MUST use a futuristic technical typeface consistent with premium engineering software aesthetics. Font weights, sizes, and spacing MUST be defined as design tokens and applied uniformly.
+- **FR-046**: The BlackDragon logo MUST be displayed consistently in the main navigation header, authentication pages (login, register), the portal dashboard, and the public website landing page.
+- **FR-047**: All reusable UI components (buttons, cards, inputs, modals, tables, status indicators) MUST use the BlackDragon metallic embossed styling with subtle glow effects and brushed-metal gradients as defined in the design token system.
+- **FR-048**: All visual programming editor nodes MUST conform to the BlackDragon design system with dark node bodies, color-coded port indicators by data type, selection glow effects, and consistent node header styling.
+- **FR-049**: The public website MUST convey a premium engineering brand presence through hero sections, product showcases, and marketing pages that use the full BlackDragon visual vocabulary (dark backgrounds, metallic accents, circuit patterns, technical typography).
+- **FR-050**: The design system MUST define and enforce a complete set of Tailwind CSS design tokens (colors, shadows, gradients, animations, spacing, typography) that all components and pages consume, ensuring no ad-hoc styling overrides occur.
+
 ### Key Entities
 
 - **User**: A person who accesses the platform. Has a role (Client or Administrator), email, credentials, and belongs to one organization/tenant.
@@ -306,6 +317,7 @@ A client creates reusable automation modules (custom blocks) from existing diagr
 - **SC-010**: All generated ESPHome YAML files are syntactically valid and pass ESPHome config validation.
 - **SC-011**: Project save and load operations complete within 2 seconds for projects with up to 200 blocks.
 - **SC-012**: Every deployment and project modification is recorded in the audit log with actor, action, timestamp, and outcome.
+- **SC-013**: 100% of user-facing pages and components pass a visual design audit confirming adherence to the BlackDragon brand identity — ultra-dark backgrounds, metallic accents, circuit-board patterns, logo placement, and consistent design token usage with zero ad-hoc style overrides.
 
 ## Assumptions
 
