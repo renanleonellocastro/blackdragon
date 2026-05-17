@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-bd-bg-primary text-bd-text-primary;
+    font-family: 'Exo 2', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply min-h-screen bg-bd-bg-primary;
+  }
+
+  ::selection {
+    @apply bg-bd-chrome-dark text-bd-text-primary;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bd-bg-panel;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded bg-bd-accent;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-bd-accent-highlight;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #6b7280 #111111;
+  }
+}

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: blackdragon
+      POSTGRES_USER: blackdragon
+      POSTGRES_PASSWORD: blackdragon
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+asyncpg://blackdragon:blackdragon@postgres:5432/blackdragon
+      SECRET_KEY: ${SECRET_KEY:-change-me}
+      CORS_ORIGINS: '["http://localhost"]'
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  pgdata:

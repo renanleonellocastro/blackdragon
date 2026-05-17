@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <linearGradient id="metallic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C0C0C0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#808080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#404040;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="metallic-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D1D5DB;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#6B7280;stop-opacity:0.4" />
+    </linearGradient>
+  </defs>
+  <!-- Dragon body - coiled serpentine form -->
+  <path d="M100 20 C130 20, 160 40, 155 70 C150 95, 125 100, 130 120 C135 140, 160 145, 155 165 C150 180, 120 185, 100 180 C80 175, 60 160, 65 140 C70 120, 90 115, 85 95 C80 75, 50 70, 55 45 C58 30, 80 20, 100 20Z" fill="url(#metallic)" stroke="#3A3A3A" stroke-width="1"/>
+  <!-- Dragon head -->
+  <path d="M145 55 L170 35 L165 55 L180 50 L160 65 C158 67, 155 68, 155 70" fill="url(#metallic-highlight)" stroke="#3A3A3A" stroke-width="0.8"/>
+  <!-- Wing left -->
+  <path d="M75 60 C60 30, 25 25, 20 50 C18 60, 30 65, 45 60 C35 55, 40 45, 55 50 L65 55" fill="url(#metallic)" stroke="#3A3A3A" stroke-width="0.8" opacity="0.9"/>
+  <!-- Wing right -->
+  <path d="M125 60 C140 30, 175 25, 180 50 C182 60, 170 65, 155 60 C165 55, 160 45, 145 50 L135 55" fill="url(#metallic)" stroke="#3A3A3A" stroke-width="0.8" opacity="0.9"/>
+  <!-- Eye -->
+  <circle cx="148" cy="62" r="3" fill="#E5E5E5"/>
+  <circle cx="148" cy="62" r="1.5" fill="#050505"/>
+  <!-- Tail -->
+  <path d="M90 175 C70 190, 50 185, 40 170 L45 175 C50 180, 60 182, 70 178" fill="url(#metallic-highlight)" stroke="#3A3A3A" stroke-width="0.8"/>
+  <!-- Scale details -->
+  <path d="M95 50 C100 45, 110 45, 115 50" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+  <path d="M90 70 C95 65, 105 65, 110 70" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+  <path d="M88 90 C93 85, 103 85, 108 90" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+  <path d="M92 110 C97 105, 107 105, 112 110" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+  <path d="M95 130 C100 125, 110 125, 115 130" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+  <path d="M95 150 C100 145, 110 145, 115 150" stroke="#8B8B8B" stroke-width="0.5" fill="none" opacity="0.6"/>
+</svg>

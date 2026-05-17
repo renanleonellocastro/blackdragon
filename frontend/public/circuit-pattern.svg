@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .trace { stroke: #2A2A2A; stroke-width: 0.8; fill: none; }
+      .via { fill: #2A2A2A; }
+      .pad { fill: none; stroke: #2A2A2A; stroke-width: 0.6; }
+    </style>
+  </defs>
+  <!-- Horizontal traces -->
+  <line class="trace" x1="0" y1="20" x2="35" y2="20"/>
+  <line class="trace" x1="65" y1="20" x2="100" y2="20"/>
+  <line class="trace" x1="0" y1="50" x2="20" y2="50"/>
+  <line class="trace" x1="80" y1="50" x2="100" y2="50"/>
+  <line class="trace" x1="0" y1="80" x2="45" y2="80"/>
+  <line class="trace" x1="55" y1="80" x2="100" y2="80"/>
+  <!-- Vertical traces -->
+  <line class="trace" x1="20" y1="0" x2="20" y2="15"/>
+  <line class="trace" x1="20" y1="25" x2="20" y2="45"/>
+  <line class="trace" x1="50" y1="0" x2="50" y2="30"/>
+  <line class="trace" x1="50" y1="70" x2="50" y2="100"/>
+  <line class="trace" x1="80" y1="0" x2="80" y2="45"/>
+  <line class="trace" x1="80" y1="55" x2="80" y2="100"/>
+  <!-- Diagonal traces -->
+  <line class="trace" x1="35" y1="20" x2="50" y2="35"/>
+  <line class="trace" x1="50" y1="65" x2="65" y2="80"/>
+  <line class="trace" x1="65" y1="20" x2="50" y2="35"/>
+  <!-- Vias (filled dots at junctions) -->
+  <circle class="via" cx="20" cy="20" r="2"/>
+  <circle class="via" cx="50" cy="35" r="2"/>
+  <circle class="via" cx="80" cy="50" r="2"/>
+  <circle class="via" cx="50" cy="65" r="2"/>
+  <circle class="via" cx="20" cy="50" r="2"/>
+  <!-- Pads (hollow squares) -->
+  <rect class="pad" x="47" y="47" width="6" height="6" rx="0.5"/>
+  <rect class="pad" x="32" y="17" width="6" height="6" rx="0.5"/>
+  <rect class="pad" x="62" y="77" width="6" height="6" rx="0.5"/>
+</svg>
