@@ -9,7 +9,7 @@ def test_ha_generates_automation_from_input_to_output() -> None:
             IRNode(id="input1", type="digital-input", properties={"gpio_pin": 4}),
             IRNode(id="output1", type="digital-output", properties={"gpio_pin": 5}),
         ],
-        edges=[IREdge(source="input1", target="output1", source_port="out", target_port="in")],
+        edges=[IREdge(source="input1", source_handle="out", target="output1", target_handle="in")],
         sorted_ids=["input1", "output1"],
     )
     gen = HomeAssistantGenerator()

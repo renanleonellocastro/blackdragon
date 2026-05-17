@@ -30,8 +30,8 @@ def test_module_expansion_preserves_topology() -> None:
             IRNode(id="mod_out1", type="digital-output", properties={"gpio_pin": 5}),
         ],
         edges=[
-            IREdge(source="mod_in1", target="mod_gate", source_port="out", target_port="in1"),
-            IREdge(source="mod_gate", target="mod_out1", source_port="out", target_port="in"),
+            IREdge(source="mod_in1", source_handle="out", target="mod_gate", target_handle="in1"),
+            IREdge(source="mod_gate", source_handle="out", target="mod_out1", target_handle="in"),
         ],
         sorted_ids=["mod_in1", "mod_gate", "mod_out1"],
     )

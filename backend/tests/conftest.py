@@ -5,18 +5,45 @@ from collections.abc import AsyncGenerator
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import event
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.types import JSON, String, TypeDecorator
 
 from app.core.security import create_access_token, hash_password
 from app.database import Base, get_async_session
-from app.main import app
+from app.main import create_app
 from app.models.tenant import Tenant
 from app.models.user import User, UserRole
 
-TEST_DATABASE_URL = "postgresql+asyncpg://blackdragon:blackdragon_dev@localhost:5432/blackdragon_test"
+# ── SQLite compatibility for PostgreSQL types ──
+# Render PostgreSQL UUID as CHAR(36) and JSONB as JSON in SQLite
+from sqlalchemy.ext.compiler import compiles
+
+@compiles(UUID, "sqlite")
+def _compile_uuid_sqlite(type_, compiler, **kw):
+    return "CHAR(36)"
+
+@compiles(JSONB, "sqlite")
+def _compile_jsonb_sqlite(type_, compiler, **kw):
+    return "JSON"
+
+# Use SQLite for tests — no PostgreSQL required
+TEST_DATABASE_URL = "sqlite+aiosqlite://"
 
 test_engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+
+# Enable SQLite foreign keys
+@event.listens_for(test_engine.sync_engine, "connect")
+def _set_sqlite_pragma(dbapi_conn, _connection_record):
+    cursor = dbapi_conn.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
+
 test_session_factory = async_sessionmaker(test_engine, class_=AsyncSession, expire_on_commit=False)
+
+# Create a fresh app for tests
+_test_app = create_app()
 
 
 @pytest.fixture(scope="session")
@@ -40,14 +67,16 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
 
 @pytest_asyncio.fixture
 async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient, None]:
-    async def _get_test_session() -> AsyncGenerator[AsyncSession, None]:
+    from app.api.deps import get_db
+
+    async def _get_test_db() -> AsyncGenerator[AsyncSession, None]:
         yield db_session
 
-    app.dependency_overrides[get_async_session] = _get_test_session
-    transport = ASGITransport(app=app)
+    _test_app.dependency_overrides[get_db] = _get_test_db
+    transport = ASGITransport(app=_test_app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
-    app.dependency_overrides.clear()
+    _test_app.dependency_overrides.clear()
 
 
 @pytest_asyncio.fixture

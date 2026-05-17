@@ -21,7 +21,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['tests/**/*.spec.ts'],
+    include: ['tests/unit/**/*.spec.ts'],
+    exclude: ['tests/e2e/**'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,vue}'],
