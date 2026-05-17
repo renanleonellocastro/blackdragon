@@ -110,7 +110,6 @@ frontend/
 │   │   └── board.ts
 │   ├── composables/
 │   │   ├── useAuth.ts
-│   │   ├── useApi.ts
 │   │   └── useAutoSave.ts
 │   ├── components/
 │   │   ├── ui/               # Design system components
@@ -213,9 +212,12 @@ backend/
 │   │   ├── board_model.py
 │   │   ├── board_instance.py
 │   │   ├── diagram.py
+│   │   ├── compilation_artifact.py
 │   │   ├── deployment.py
 │   │   ├── credential.py
 │   │   ├── audit_log.py
+│   │   ├── blog_post.py
+│   │   ├── module.py
 │   │   └── lead_submission.py
 │   ├── schemas/
 │   │   ├── __init__.py
@@ -226,18 +228,21 @@ backend/
 │   │   ├── diagram.py
 │   │   ├── compiler.py
 │   │   ├── deployment.py
+│   │   ├── blog.py
 │   │   └── lead.py
 │   ├── api/
 │   │   ├── __init__.py
 │   │   ├── deps.py            # Dependency injection (auth, db session, tenant)
 │   │   ├── auth.py
 │   │   ├── users.py
+│   │   ├── properties.py
 │   │   ├── projects.py
 │   │   ├── boards.py
 │   │   ├── diagrams.py
 │   │   ├── compiler.py
 │   │   ├── deployments.py
 │   │   ├── leads.py
+│   │   ├── blog.py
 │   │   └── admin.py
 │   ├── services/
 │   │   ├── __init__.py
@@ -247,6 +252,7 @@ backend/
 │   │   ├── board_service.py
 │   │   ├── diagram_service.py
 │   │   ├── deployment_service.py
+│   │   ├── blog_service.py
 │   │   └── audit_service.py
 │   ├── compiler/
 │   │   ├── __init__.py
@@ -289,6 +295,9 @@ backend/
     │   └── test_tenant_isolation.py
     └── snapshots/
         └── esphome/           # Expected YAML output snapshots
+        └── homeassistant/     # Expected HA YAML snapshots
+    └── performance/
+        └── load_test.py       # k6/locust load test scripts
 
 docker/
 ├── docker-compose.yml

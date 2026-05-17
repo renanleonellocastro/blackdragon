@@ -20,6 +20,7 @@ BoardModel 1──* BoardModelChannel
 BoardInstance 1──* BoardInstanceChannel
 Diagram 1──* CompilationArtifact
 User 1──* AuditLog
+User 1──* BlogPost
 Deployment 1──* AuditLog
 ```
 
@@ -374,6 +375,28 @@ Contact form entries from the public website.
 
 ---
 
+### BlogPost
+
+Published content articles managed by administrators.
+
+| Field | Type | Constraints | Description |
+|-------|------|-------------|-------------|
+| id | UUID | PK, default uuid4 | Unique identifier |
+| title | VARCHAR(255) | NOT NULL | Article title |
+| slug | VARCHAR(255) | UNIQUE, NOT NULL | URL-safe slug |
+| excerpt | TEXT | NULLABLE | Short summary for listing pages |
+| content | TEXT | NOT NULL | Full article body (Markdown) |
+| author_id | UUID | FK → User.id, NOT NULL | Authoring administrator |
+| status | ENUM('draft', 'published', 'archived') | NOT NULL, default 'draft' | Publication status |
+| published_at | TIMESTAMP | NULLABLE | Publication timestamp (set on first publish) |
+| created_at | TIMESTAMP | NOT NULL, default now() | Creation timestamp |
+| updated_at | TIMESTAMP | NOT NULL, auto-update | Last modification |
+
+**Relationships**: Belongs to User (author). Not tenant-scoped — system-level content.
+**Indexes**: `idx_blog_slug` (slug), `idx_blog_status_published` (status, published_at DESC).
+
+---
+
 ### Module
 
 A reusable group of blocks saved as a template (future enhancement, included in model for forward compatibility).
@@ -416,6 +439,7 @@ A reusable group of blocks saved as a template (future enhancement, included in 
 | Credential | Tenant | ✓ |
 | AuditLog | Tenant | ✓ (nullable) |
 | LeadSubmission | System | — |
+| BlogPost | System | — |
 | Module | Tenant | ✓ |
 
 ## State Transitions

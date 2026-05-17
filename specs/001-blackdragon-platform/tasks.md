@@ -82,6 +82,7 @@
 - [ ] T032 [P] Create backend test conftest.py with async db session, test client, auth token fixtures, and test tenant setup in backend/tests/conftest.py
 - [ ] T033 [P] Configure Vitest for frontend unit tests in frontend/vite.config.ts and frontend/package.json
 - [ ] T034 [P] Test tenant isolation middleware filters queries correctly in backend/tests/integration/test_tenant_isolation.py
+- [ ] T034a Create PostgreSQL Row Level Security (RLS) policies for all tenant-scoped tables as defense-in-depth isolation layer, with migration in backend/alembic/versions/ and verification test in backend/tests/integration/test_rls_policies.py
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
@@ -108,10 +109,16 @@
 - [ ] T042 [P] [US1] Create SolutionsPage with automation capabilities in frontend/src/views/public/SolutionsPage.vue
 - [ ] T043 [P] [US1] Create ProjectsPage with case studies portfolio in frontend/src/views/public/ProjectsPage.vue
 - [ ] T044 [P] [US1] Create BlogPage with article listing in frontend/src/views/public/BlogPage.vue
+- [ ] T044a [P] [US1] Create BlogPost model (id, tenant_id, title, slug, content, excerpt, author_id, published_at, status) in backend/app/models/blog_post.py
+- [ ] T044b [P] [US1] Create blog Pydantic schemas (BlogPostCreate, BlogPostUpdate, BlogPostResponse, BlogPostList) in backend/app/schemas/blog.py
+- [ ] T044c [US1] Create blog service (list published, get by slug, admin CRUD) in backend/app/services/blog_service.py
+- [ ] T044d [US1] Create blog API endpoints (GET /api/blog public listing, GET /api/blog/:slug public detail, POST/PATCH/DELETE /api/admin/blog admin CRUD) in backend/app/api/blog.py
+- [ ] T044e [US1] Add Alembic migration for BlogPost table in backend/alembic/versions/
+- [ ] T044f [P] [US1] Create admin BlogManagementPage with post CRUD and publish toggle in frontend/src/views/portal/admin/BlogManagementPage.vue
 - [ ] T045 [US1] Create ContactPage with validated lead capture form calling POST /api/leads in frontend/src/views/public/ContactPage.vue
 - [ ] T046 [US1] Add Alembic migration for LeadSubmission table in backend/alembic/versions/
 
-**Checkpoint**: Public website fully navigable, contact form stores submissions
+**Checkpoint**: Public website fully navigable, contact form stores submissions, blog backend operational
 
 ---
 
@@ -140,7 +147,7 @@
 - [ ] T058 [US2] Create projects API endpoints per contracts/projects.md in backend/app/api/projects.py
 - [ ] T059 [US2] Add Alembic migration for Property and Project tables in backend/alembic/versions/
 - [ ] T060 [P] [US2] Create auth frontend service (login, register, refresh, logout API calls) in frontend/src/services/auth.service.ts
-- [ ] T061 [P] [US2] Create Pinia auth store with token management and user state in frontend/src/stores/auth.ts
+- [ ] T061 [P] [US2] Create Pinia auth store with token management, user state, and automatic session expiry detection with re-authentication prompt (intercept 401 responses during editing to prevent data loss) in frontend/src/stores/auth.ts
 - [ ] T062 [P] [US2] Create useAuth composable for login/logout/register actions in frontend/src/composables/useAuth.ts
 - [ ] T063 [US2] Create LoginPage with email/password form and error handling in frontend/src/views/auth/LoginPage.vue
 - [ ] T064 [US2] Create RegisterPage with registration form and validation in frontend/src/views/auth/RegisterPage.vue
@@ -303,8 +310,10 @@
 - [ ] T141 [US7] Add version API endpoints (POST save, GET list, POST rollback) to projects router per contracts/projects.md in backend/app/api/projects.py
 - [ ] T142 [US7] Add Alembic migration for ProjectVersion table in backend/alembic/versions/
 - [ ] T143 [US7] Add version history panel with rollback action to ProjectEditorPage in frontend/src/views/portal/ProjectEditorPage.vue
+- [ ] T143a [US7] Add version diff endpoint (GET /api/projects/:id/versions/:v1/diff/:v2) returning structured diff of diagram and board config changes in backend/app/api/projects.py and backend/app/services/project_service.py
+- [ ] T143b [US7] Add version comparison view to version history panel showing side-by-side diff of changes in frontend/src/views/portal/ProjectEditorPage.vue
 
-**Checkpoint**: Project versioning with save, history, and rollback fully functional
+**Checkpoint**: Project versioning with save, history, rollback, and diff comparison fully functional
 
 ---
 
@@ -390,6 +399,11 @@
 - [ ] T171 Create .env.example files for both frontend/ and backend/ with documented variables
 - [ ] T172 Create production Docker Compose (frontend nginx, backend uvicorn, postgres) in docker/docker-compose.yml with frontend Dockerfile in docker/frontend/Dockerfile
 - [ ] T173 Add CSRF protection headers and security hardening to backend middleware in backend/app/main.py
+- [ ] T174 [P] Create Playwright e2e test for US1: navigate all public pages, submit contact form, verify submission stored in frontend/tests/e2e/public-website.spec.ts
+- [ ] T175 [P] Create Playwright e2e test for US2: register, login, create project, duplicate, verify tenant isolation in frontend/tests/e2e/auth.spec.ts
+- [ ] T176 [P] Create Playwright e2e test for US3: open editor, place blocks, connect wires, configure properties, save and reload in frontend/tests/e2e/visual-editor.spec.ts
+- [ ] T177 Create API load test script validating SC-006 (100 concurrent users) with k6 or locust targeting auth, project CRUD, and compile endpoints in backend/tests/performance/load_test.py
+- [ ] T178 [P] Create frontend performance test validating SC-004 (100ms editor interactions) using Playwright performance tracing in frontend/tests/e2e/editor-performance.spec.ts
 
 ---
 

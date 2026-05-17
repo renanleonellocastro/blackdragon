@@ -202,7 +202,7 @@ A client creates reusable automation modules (custom blocks) from existing diagr
 - **FR-001**: System MUST present a public website with pages for Home, About, Products, Solutions, Projects, Blog, and Contact.
 - **FR-002**: System MUST display a catalog of BlackDragon hardware boards with specifications, descriptions, and images on the Products page.
 - **FR-003**: System MUST provide a lead capture form on the Contact page that validates input, confirms submission, and stores entries for administrator review.
-- **FR-004**: System MUST support a blog section with published articles and an optional documentation section.
+- **FR-004**: System MUST support a blog section backed by a database-stored content model with published articles manageable by administrators. An optional documentation section MAY be added as a future enhancement.
 
 **Authentication and Authorization**
 
@@ -288,6 +288,7 @@ A client creates reusable automation modules (custom blocks) from existing diagr
 - **Compilation Artifact**: Generated output from the compiler pipeline (ESPHome YAML, Home Assistant YAML, Intermediate Representation).
 - **Deployment Record**: A log entry recording when a configuration was deployed to a device, by whom, with what result.
 - **Lead Submission**: A contact form entry from the public website, with submitter information and message content.
+- **Blog Post**: A content article authored by an administrator, with title, slug, excerpt, body content, publication status, and timestamps.
 
 ## Success Criteria *(mandatory)*
 
